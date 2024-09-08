@@ -1,6 +1,12 @@
 ## Step 1
 Download some sample data to search like the Graham's essays collection.
 
+```
+git clone git@github.com:ofou/graham-essays.git
+cd graham-essays
+make
+```
+
 Create directory to store the data to index/search:
 `mkdir ./documents`
 
