@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  llama-index:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./documents:/app/documents
+      - ./index_persist_dir:/app/index_persist_dir
+    depends_on:
+      - ollama
+
+  ollama:
+    build:
+      context: .
+      dockerfile: Dockerfile.ollama
+    ports:
+      - "11435:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:

@@ -1,0 +1,8 @@
+llama-index-llms-ollama
+llama-index-embeddings-huggingface
+llama-index-vector-stores-docarray
+docarray[hnswlib]
+llama-index-readers-file
+uvicorn
+fastapi
+pydantic>=2.0.0
