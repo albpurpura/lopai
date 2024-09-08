@@ -6,3 +6,4 @@ llama-index-readers-file
 uvicorn
 fastapi
 pydantic>=2.0.0
+python-multipart
