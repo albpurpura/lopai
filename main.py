@@ -89,7 +89,3 @@ async def query(question: Question):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-    
-"""    
-curl -X POST "http://0.0.0.0:8000/query" -H "Content-Type: application/json" -d '{"text": "explain power day to me"}'
-"""
