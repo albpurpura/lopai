@@ -47,8 +47,8 @@ embedding_model = "BAAI/bge-base-en-v1.5"
 vector_store_index_dir = "vector_store_index"
 index_persist_dir = "index_persist_dir"
 llm_model_name = "llama3.1"
-# ollama_base_url = "http://ollama:11434"
-ollama_base_url = "http://0.0.0.0:11434"
+ollama_base_url = "http://ollama:11434"
+# ollama_base_url = "http://0.0.0.0:11434"
 
 # LlamaIndex settings
 Settings.embed_model = HuggingFaceEmbedding(model_name=embedding_model)
