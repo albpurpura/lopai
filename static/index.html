@@ -1,63 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Search</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <style>
-        #sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px; /* Initial width */
-            background-color: white;
-            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
-            transition: width 0.3s ease;
-        }
-
-        #resizeHandle {
-            position: fixed;
-            top: 0;
-            left: 250px; /* Starts at the sidebar edge */
-            width: 5px;
-            height: 100%;
-            background-color: #ccc;
-            cursor: ew-resize;
-            transition: left 0.3s ease;
-        }
-
-        #content {
-            margin-left: 250px; /* Initial margin equal to the sidebar width */
-            transition: margin-left 0.3s ease;
-            padding: 8px;
-        }
-
-        #sidebar-hidden #content {
-            margin-left: 0;
-        }
-    </style>
 </head>
-
 <body class="bg-gray-100">
     <button id="sidebarToggle" class="fixed top-4 left-4 z-30 bg-blue-500 text-white p-2 rounded-full shadow-lg">
         <i class="fas fa-bars"></i>
     </button>
 
-    <div id="sidebar" class="z-20">
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-20">
         <div class="p-4">
             <h2 id="indexed-documents" class="text-xl font-semibold mb-4 ml-8">Indexed Documents</h2>
-            <ul id="documentList" class="space-y-2 max-h-96 overflow-y-auto"></ul>
+            <ul id="documentList" style="max-height:80vh; overflow-y: scroll" class="space-y-2 overflow-y-auto"></ul>
             <button id="addDocumentsBtn" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Documents</button>
         </div>
     </div>
 
-    <div id="resizeHandle"></div>
-
-    <div id="content">
+    <div class="p-8">
         <div class="max-w-2xl mx-auto">
             <h1 id="document-search" class="text-3xl font-bold mb-6 text-center">Document Search</h1>
             <div class="mb-6">
@@ -85,7 +48,6 @@
     <script>
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebarToggle');
-        const content = document.getElementById('content');
         const modal = document.getElementById('modal');
         const addDocumentsBtn = document.getElementById('addDocumentsBtn');
         const cancelUpload = document.getElementById('cancelUpload');
@@ -95,43 +57,11 @@
         const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');
         const searchResult = document.getElementById('searchResult');
-        const resizeHandle = document.getElementById('resizeHandle');
 
         let selectedFiles = [];
-        let isResizing = false;
-        let isSidebarVisible = true;
-
-        resizeHandle.addEventListener('mousedown', function (e) {
-            isResizing = true;
-        });
-
-        document.addEventListener('mousemove', function (e) {
-            if (isResizing && isSidebarVisible) {
-                let newWidth = e.clientX;
-                if (newWidth > 100 && newWidth < window.innerWidth * 0.5) {
-                    sidebar.style.width = newWidth + 'px';
-                    resizeHandle.style.left = newWidth + 'px';
-                    content.style.marginLeft = newWidth + 'px'; // Adjust content margin
-                }
-            }
-        });
-
-        document.addEventListener('mouseup', function () {
-            isResizing = false;
-        });
 
         sidebarToggle.addEventListener('click', () => {
-            if (isSidebarVisible) {
-                sidebar.style.transform = 'translateX(-100%)';
-                content.style.marginLeft = '0'; // Reset content margin when sidebar is hidden
-                resizeHandle.style.display = 'none'; // Hide resize handle when sidebar is hidden
-            } else {
-                sidebar.style.transform = 'translateX(0)';
-                content.style.marginLeft = sidebar.offsetWidth + 'px'; // Set margin based on sidebar width
-                resizeHandle.style.display = 'block'; // Show resize handle when sidebar is visible
-                resizeHandle.style.left = sidebar.offsetWidth + 'px'; // Position the handle correctly
-            }
-            isSidebarVisible = !isSidebarVisible;
+            sidebar.classList.toggle('-translate-x-full');
         });
 
         addDocumentsBtn.addEventListener('click', () => {
@@ -264,10 +194,10 @@
                     const li = document.createElement('li');
                     li.className = 'flex justify-between items-center';
                     li.innerHTML = `
-                        <span>${JSON.stringify(doc.metadata)}</span>
-                        <button class="delete-doc-btn text-red-500 hover:text-red-700" data-id="${doc.id}">
+                        <button style="margin-right: 10px" class="delete-doc-btn text-red-500 hover:text-red-700" data-id="${doc.id}">
                             <i class="fas fa-trash"></i>
                         </button>
+                        <span>${JSON.stringify(doc.metadata)}</span>
                     `;
                     documentList.appendChild(li);
                 });
@@ -355,5 +285,4 @@
         loadDocumentList();
     </script>
 </body>
-
 </html>
