@@ -20,13 +20,13 @@ cp essays/*.md <your local rag repo code>/documents
 ```
 
 ## Step 3
-Start the system and wait for it to download the llm model. It will take a few minutes depending on your internet connection, keep an eye on the logs.
+Start the system and wait for it to download the LLM and -- if it's the first time you run it -- to index the data. It will take a few minutes depending on your internet connection, keep an eye on the logs.
 ```
 docker-copose up --build
 ```
 
 ## Step 4
-Once running, the server will be ready to answer your questions at the localhost:8000 address.
+Once running, the server will be ready to answer your questions at the `localhost:8000` address.
 
 Example:
 
