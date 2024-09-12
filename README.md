@@ -7,7 +7,7 @@ Locally Hosted Private AI-Powered Search
 
 LoPAI Search is a locally hosted, private AI-powered search engine that allows you to index and query your own documents and files. It uses [LLaMAIndex](https://www.llamaindex.ai/) and [Ollama](https://ollama.com/) to power the search functionalities.
 
-[Demo Video](https://www.youtube.com/shorts/ERQX35oK2WE)
+[Demo Video](https://www.youtube.com/watch?v=nxcjKnlOzEw)
 
 # Features
 
