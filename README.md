@@ -1,7 +1,37 @@
-Just clone and run with docker and docker compose:
-```
-docker-compose up --build
-```
+LoPAI Search
+================
 
-## Step 4
-Once running, the server will be ready to answer your questions at the `localhost:8000` (GUI).
+Locally Hosted Private AI-Powered Search
+
+# Overview
+
+LoPAI Search is a locally hosted, private AI-powered search engine that allows you to index and query your own documents and files. It uses [LLaMAIndex](https://www.llamaindex.ai/) and [Ollama](https://ollama.com/) to power the search functionalities.
+
+# Features
+
+- Index and query your own documents and files
+- Supports the most popular text data formats supported by Llama index
+- Use AI-powered search to find relevant results
+- Supports multiple collections and indexing
+- Locally hosted, so you have full control over your data
+- Private, so you can keep your data secure
+
+# Getting Started
+
+# Prerequisites
+Docker and docker-compose installed on your machine.
+
+# Running the App
+
+1. Clone this repository to your local machine
+2. Run `docker-compose up --build` to  build and start the app
+3. Access the app at `http://localhost:8000` in your web browser
+
+
+# License
+
+LoPAI Search is licensed under the Apache License. See LICENSE for details.
+
+# Acknowledgments
+
+LoPAI Search uses the [LLaMAIndex](https://www.llamaindex.ai/) and [Ollama](https://ollama.com/).
