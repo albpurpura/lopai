@@ -23,7 +23,7 @@ Docker and docker-compose installed on your machine.
 
 # Running the App
 
-1. Clone this repository to your local machine
+1. Clone this repository to your local machine `git clone git@github.com:albpurpura/local_rag_llamaindex_docarray.git && cd local_rag_llamaindex_docarray`
 2. Run `docker-compose up --build` to  build and start the app
 3. Access the app at `http://localhost:8000` in your web browser
 
