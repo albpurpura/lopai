@@ -61,6 +61,31 @@
         .metadata-item strong {
             font-weight: 600;
         }
+
+        #fileList {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 0.5rem;
+        }
+
+        #fileList::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #fileList::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        #fileList::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        #fileList::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     </style>
 </head>
 
