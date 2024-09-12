@@ -13,12 +13,26 @@ const searchResult = document.getElementById('searchResult');
 const createCollectionBtn = document.getElementById('createCollectionBtn');
 const collectionList = document.getElementById('collectionList');
 const currentCollectionElement = document.getElementById('currentCollection');
+const searchPanel = document.getElementById('search-panel');
 
 let selectedFiles = [];
 let currentCollection = null;
 
+function updateSearchPanelPosition() {
+    if (sidebar.classList.contains('-translate-x-full')) {
+        searchPanel.style.marginLeft = 'auto';
+        searchPanel.style.marginRight = 'auto';
+        searchPanel.style.maxWidth = '1024px'; // Adjust this value as needed
+    } else {
+        searchPanel.style.marginLeft = '16rem'; // 64px (sidebar width) + some extra space
+        searchPanel.style.marginRight = '0';
+        searchPanel.style.maxWidth = 'none';
+    }
+}
+
 sidebarToggle.addEventListener('click', () => {
     sidebar.classList.toggle('-translate-x-full');
+    updateSearchPanelPosition();
 });
 
 addDocumentsBtn.addEventListener('click', () => {
@@ -380,30 +394,30 @@ function selectCollection(name) {
 async function renameCollection(oldName) {
     const newName = prompt(`Enter a new name for the collection "${oldName}":`);
     if (!newName) return;
-  
+
     try {
-      const response = await fetch(`/collections/${oldName}?new_name=${newName}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to rename collection');
-      }
-  
-      const result = await response.json();
-      alert(result.message);
-      loadCollections();
-      if (currentCollection === oldName) {
-        selectCollection(newName);
-      }
+        const response = await fetch(`/collections/${oldName}?new_name=${newName}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to rename collection');
+        }
+
+        const result = await response.json();
+        alert(result.message);
+        loadCollections();
+        if (currentCollection === oldName) {
+            selectCollection(newName);
+        }
     } catch (error) {
-      console.error('Error renaming collection:', error);
-      alert('Failed to rename collection. Please try again.');
+        console.error('Error renaming collection:', error);
+        alert('Failed to rename collection. Please try again.');
     }
-  }
+}
 
 async function deleteCollection(name) {
     if (!confirm(`Are you sure you want to delete the collection "${name}"?`)) return;
