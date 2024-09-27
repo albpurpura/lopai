@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import os
 from collection import Collection
 import qdrant_client
+import time
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -22,20 +23,18 @@ QDRANT_HOSTNAME = os.getenv("QDRANT_HOSTNAME", "qdrant")
 class CollectionManager:
     def __init__(self):
         self.collections: Dict[str, Collection] = {}
-        self.client = qdrant_client.QdrantClient(
-            # you can use :memory: mode for fast and light-weight experiments,
-            # it does not require to have Qdrant deployed anywhere
-            # but requires qdrant-client >= 1.1.1
-            # location=":memory:",
-            # otherwise set Qdrant instance address with:
-            # url="http://:"
-            # otherwise set Qdrant instance with host and port:
-            host=QDRANT_HOSTNAME,
-            port=6333
-            # set API KEY for Qdrant Cloud
-            # api_key="",
-        )
-        self.load_existing_collections()
+        retries = 5
+        while retries:
+            try:
+                self.client = qdrant_client.QdrantClient(host=QDRANT_HOSTNAME)
+                self.load_existing_collections()
+                break
+            except Exception as e:
+                retries -= 1
+                logger.error(
+                    f"Failed to connect to Qdrant. Retries left: {retries}. Error: {e}"
+                )
+                time.sleep(5)
 
     def load_existing_collections(
         self,
