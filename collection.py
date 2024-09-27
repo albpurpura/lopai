@@ -16,6 +16,7 @@ load_dotenv()
 
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-base-en-v1.5")
 EMBEDDING_SIZE = os.getenv("EMBEDDING_SIZE", 768)
+TOP_K = os.getenv("TOP_K", 3)
 LLM_MODEL_NAME = os.getenv("LLM_MODEL_NAME", "llama3.2")
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://ollama:11434")
 COLLECTIONS_DIR = os.getenv("COLLECTIONS_DIR", "collections")
@@ -66,7 +67,7 @@ class Collection:
                 vector_size=EMBEDDING_SIZE,
             )
 
-        self.query_engine = self.index.as_query_engine()
+        self.query_engine = self.index.as_query_engine(similarity_top_k=TOP_K)
 
     def query(self, question: str) -> Dict:
         response = self.query_engine.query(question)
