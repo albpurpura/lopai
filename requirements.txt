@@ -1,9 +1,13 @@
 llama-index-llms-ollama
+llama-index-llms-openai
 llama-index-embeddings-huggingface
-llama-index-vector-stores-docarray
-docarray[hnswlib]
 llama-index-readers-file
 uvicorn
 fastapi
 pydantic>=2.0.0
 python-multipart
+python-dotenv
+llama-index-vector-stores-qdrant 
+llama-index-readers-file 
+llama-index-embeddings-fastembed 
+qdrant-client

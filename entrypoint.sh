@@ -8,7 +8,7 @@ ollama serve &
 sleep 10
 
 # Pull the model
-ollama pull llama3.1
+ollama pull llama3.2
 
 # Keep the container running
 tail -f /dev/null

@@ -1,6 +1,24 @@
 version: '3.3'
 
 services:
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: always
+    container_name: qdrant
+    ports:
+      - 6333:6333
+      - 6334:6334
+    expose:
+      - 6333
+      - 6334
+      - 6335
+    configs:
+      - source: qdrant_config
+        target: /qdrant/config/production.yaml
+    volumes:
+      - qdrant_data:/qdrant/storage
+
   llama-index:
     build:
       context: .
@@ -8,8 +26,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./documents:/app/documents
-      - ./index_persist_dir:/app/index_persist_dir
+      - documents:/app/documents
     depends_on:
       - ollama
 
@@ -24,3 +41,5 @@ services:
 
 volumes:
   ollama_data:
+  qdrant_data:
+  documents:

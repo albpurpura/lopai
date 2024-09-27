@@ -1,4 +1,5 @@
-index_persist_dir
 documents
 test.py
-collections
+qdrant_data
+.env
+__pycache__/
