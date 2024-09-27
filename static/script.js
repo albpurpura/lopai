@@ -14,19 +14,40 @@ const createCollectionBtn = document.getElementById('createCollectionBtn');
 const collectionList = document.getElementById('collectionList');
 const currentCollectionElement = document.getElementById('currentCollection');
 const searchPanel = document.getElementById('search-panel');
+const resizer = document.getElementById('resizer');
 
 let selectedFiles = [];
 let currentCollection = null;
+let isResizing = false;
+resizer.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    document.addEventListener('mousemove', resize);
+    document.addEventListener('mouseup', stopResize);
+});
+
+function resize(e) {
+    if (isResizing) {
+        const newWidth = e.clientX;
+        if (newWidth > 200 && newWidth < 600) {
+            sidebar.style.width = newWidth + 'px';
+            updateSearchPanelPosition();
+        }
+    }
+}
+
+function stopResize() {
+    isResizing = false;
+    document.removeEventListener('mousemove', resize);
+}
 
 function updateSearchPanelPosition() {
+    const sidebarWidth = sidebar.offsetWidth;
     if (sidebar.classList.contains('-translate-x-full')) {
-        searchPanel.style.marginLeft = 'auto';
-        searchPanel.style.marginRight = 'auto';
-        searchPanel.style.maxWidth = '1024px'; // Adjust this value as needed
+        searchPanel.style.marginLeft = '0';
+        searchPanel.style.width = '100%';
     } else {
-        searchPanel.style.marginLeft = '16rem'; // 64px (sidebar width) + some extra space
-        searchPanel.style.marginRight = '0';
-        searchPanel.style.maxWidth = 'none';
+        searchPanel.style.marginLeft = sidebarWidth + 'px';
+        searchPanel.style.width = `calc(100% - ${sidebarWidth}px)`;
     }
 }
 
@@ -446,4 +467,5 @@ async function deleteCollection(name) {
 }
 
 // Initial load of collections and documents
+updateSearchPanelPosition();
 loadCollections();

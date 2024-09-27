@@ -8,6 +8,35 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <style>
+        #sidebar {
+            min-width: 200px;
+            max-width: 600px;
+            resize: horizontal;
+            overflow: auto;
+        }
+
+        #resizer {
+            width: 5px;
+            height: 100%;
+            background-color: #ccc;
+            cursor: ew-resize;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        #search-panel {
+            transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
+        }
+
+        #sidebar-content {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+
         body {
             min-width: 600px;
             display: flex;
@@ -20,15 +49,6 @@
 
         .flex-1 {
             flex: 1;
-        }
-
-        #sidebar {
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        #search-panel {
-            transition: margin-left 0.3s ease-in-out;
         }
 
         .search-results {
@@ -93,18 +113,22 @@
     <div class="flex w-full">
         <div id="sidebar"
             class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-20">
-            <div class="p-4">
-                <h2 id="indexed-documents" class="text-xl font-semibold mb-4 ml-10">Collections</h2>
-                <button id="createCollectionBtn" class="bg-blue-500 text-white px-4 py-2 rounded mb-4">Create
-                    Collection</button>
-                <ul id="collectionList" class="mb-4"></ul>
-                <h3 class="text-lg font-semibold mb-2">Current Collection:</h3>
-                <p id="currentCollection" class="mb-4"></p>
-                <h3 class="text-lg font-semibold mb-2">Documents:</h3>
-                <ul id="documentList"></ul>
-                <button id="addDocumentsBtn" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Add
-                    Documents</button>
+            <div id="sidebar-content">
+                <div class="p-4">
+                    <h2 id="indexed-documents" class="text-xl font-semibold mb-4 ml-10">Collections</h2>
+                    <button id="createCollectionBtn" class="bg-blue-500 text-white px-4 py-2 rounded mb-4">Create
+                        Collection</button>
+                    <ul id="collectionList" class="mb-4"></ul>
+                    <h3 class="text-lg font-semibold mb-2">Current Collection:</h3>
+                    <p id="currentCollection" class="mb-4"></p>
+                    <h3 class="text-lg font-semibold mb-2">Documents:</h3>
+                    <ul id="documentList"></ul>
+                    <button id="addDocumentsBtn" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Add
+                        Documents</button>
+                </div>
             </div>
+            <div id="resizer" class="absolute top-0 right-0 w-2 h-full cursor-ew-resize bg-gray-300"></div>
+
         </div>
 
         <button id="sidebarToggle" class="fixed top-4 left-4 z-30 bg-white p-2 rounded-full shadow-lg">
@@ -142,6 +166,7 @@
     </div>
 
     <script src="/static/script.js"></script>
+
 </body>
 
 </html>
